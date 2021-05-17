@@ -12,15 +12,17 @@ import {
   REHYDRATE,
 } from "redux-persist/es/constants";
 
-import { authReducer } from "./reducers/authReducer";
+import { mainReduser } from "./reducers/mainReducer";
 
-const authPersistConfig = {
-  key: "auth",
+const mainPersistConfig = {
+  key: "currentMethod",
   storage,
+  blacklist: ["methods"],
+  // whitelist: ["navigation"],
 };
 
 const rootReducer = combineReducers({
-  auth: persistReducer(authPersistConfig, authReducer),
+  payMethods: persistReducer(mainPersistConfig, mainReduser),
 });
 
 const store = configureStore({
