@@ -1,7 +1,9 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
 import { getPayMethods } from "../../../redux/operations/mainOperations";
 import PurchaseForm from "../../purchaseForm/PurchaseForm";
+import { MainPageStyles, SelectWrapper, SelectButton } from "./MainPageStyles";
 
 const MainPage = () => {
   const dispatch = useDispatch();
@@ -13,19 +15,22 @@ const MainPage = () => {
   const handleSubmit = () => {};
 
   return (
-    <div>
+    <MainPageStyles>
       <form onSubmit={handleSubmit}>
-        <PurchaseForm
-          payment={"Sell"}
-          methods={payMethods.invoice}
-        ></PurchaseForm>
-        <PurchaseForm
-          payment={"Buy"}
-          methods={payMethods.withdraw}
-        ></PurchaseForm>
-        <input type="submit" value="Отправить" />
+        <SelectWrapper className="">
+          <PurchaseForm
+            payment={"Sell"}
+            methods={payMethods.invoice}
+          ></PurchaseForm>
+
+          <PurchaseForm
+            payment={"Buy"}
+            methods={payMethods.withdraw}
+          ></PurchaseForm>
+        </SelectWrapper>
+        <SelectButton type="submit" value="Отправить" />
       </form>
-    </div>
+    </MainPageStyles>
   );
 };
 
