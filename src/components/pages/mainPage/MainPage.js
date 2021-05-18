@@ -1,30 +1,40 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { getPayMethods } from "../../../redux/operations/mainOperations";
+import {
+  getPayMethods,
+  getResCalculate,
+} from "../../../redux/operations/mainOperations";
+import { getCalculate } from "../../../servises/reqToApi";
+
 import PurchaseForm from "../../purchaseForm/PurchaseForm";
 import { MainPageStyles, SelectWrapper, SelectButton } from "./MainPageStyles";
 
 const MainPage = () => {
   const dispatch = useDispatch();
   const payMethods = useSelector((state) => state.payMethods.methods);
+
   useEffect(() => {
     dispatch(getPayMethods());
+    // dispatch(getCalculate("invoice", 50, 4, 6));
   }, []);
 
-  const handleSubmit = () => {};
+  console.log("payMethods: ", payMethods);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(getResCalculate());
+  };
 
   return (
     <MainPageStyles>
       <form onSubmit={handleSubmit}>
         <SelectWrapper className="">
           <PurchaseForm
-            payment={"Sell"}
+            payment="invoice"
             methods={payMethods.invoice}
           ></PurchaseForm>
-
           <PurchaseForm
-            payment={"Buy"}
+            payment="withdraw"
             methods={payMethods.withdraw}
           ></PurchaseForm>
         </SelectWrapper>

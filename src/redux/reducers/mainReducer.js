@@ -3,12 +3,21 @@ import {
   payMethodsRequest,
   payMethodsSuccess,
   payMethodsError,
+  setCalculateAmoumt,
+  setCalculatePayMethod,
 } from "../actions/mainAction";
+import { setCalculateRequest } from "../actions/mainAction";
 
-const initialUserState = { invoice: [], withdraw: [] };
+const initialMethods = { invoice: [], withdraw: [] };
+const initialCalculate = {
+  base: "",
+  amount: null,
+  invoicePayMethod: null,
+  withdrawPayMethod: null,
+};
 
 const methods = createReducer(
-  { ...initialUserState },
+  { ...initialMethods },
   {
     [payMethodsSuccess]: (_, { payload }) => ({ ...payload }),
     // [refreshSuccess]: (state, { payload }) => ({
@@ -17,6 +26,23 @@ const methods = createReducer(
     //   refreshToken: payload.newRefreshToken,
     //   sid: payload.newSid,
     // }),
+  }
+);
+
+const setCalculate = createReducer(
+  { ...initialCalculate },
+  {
+    [setCalculateAmoumt]: (state, { payload }) => ({ ...state, ...payload }),
+    [setCalculatePayMethod]: (state, { payload }) => ({
+      ...state,
+      base: payload.payment,
+      invoicePayMethod:
+        payload.payment === "invoice" ? payload.value : state.invoicePayMethod,
+      withdrawPayMethod:
+        payload.payment === "withdraw"
+          ? payload.value
+          : state.withdrawPayMethod,
+    }),
   }
 );
 
@@ -32,6 +58,7 @@ const error = createReducer(null, {
 
 const mainReduser = combineReducers({
   methods,
+  setCalculate,
   error,
   loading,
 });

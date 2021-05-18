@@ -1,8 +1,11 @@
-import { getMethods } from "../../servises/reqToApi";
+import { getMethods, getCalculate } from "../../servises/reqToApi";
 import {
   payMethodsRequest,
   payMethodsSuccess,
   payMethodsError,
+  getCalculateRequest,
+  getCalculateSuccess,
+  getCalculateError,
 } from "../actions/mainAction";
 
 const getPayMethods = () => async (dispatch) => {
@@ -16,4 +19,23 @@ const getPayMethods = () => async (dispatch) => {
   }
 };
 
-export { getPayMethods };
+const getResCalculate = () => async (dispatch, getState) => {
+  const { base, amount, invoicePayMethod, withdrawPayMethod } =
+    getState().payMethods.setCalculate;
+  // console.log("payMethods: ", payMethods.setCalculate);
+  dispatch(getCalculateRequest());
+  try {
+    const res = await getCalculate(
+      base,
+      amount,
+      invoicePayMethod,
+      withdrawPayMethod
+    );
+    console.log("res: ", res);
+    // dispatch(getCalculateSuccess(res));
+  } catch (error) {
+    dispatch(getCalculateError(error));
+  }
+};
+
+export { getPayMethods, getResCalculate };

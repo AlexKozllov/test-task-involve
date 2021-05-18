@@ -22,6 +22,7 @@ const getCalculate = async (
   withdrawPayMethod
 ) => {
   try {
+    console.log(base, amount, invoicePayMethod, withdrawPayMethod);
     const response = await axios.get("/payMethods/calculate", {
       params: {
         base,

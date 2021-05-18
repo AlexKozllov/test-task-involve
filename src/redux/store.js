@@ -17,7 +17,7 @@ import { mainReduser } from "./reducers/mainReducer";
 const mainPersistConfig = {
   key: "currentMethod",
   storage,
-  blacklist: ["methods"],
+  blacklist: ["methods", "setCalculate"],
   // whitelist: ["navigation"],
 };
 

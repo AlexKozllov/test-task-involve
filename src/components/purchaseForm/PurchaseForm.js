@@ -1,8 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { SelectLabel } from "./styleForm";
 import Select from "react-select";
+import { useDispatch } from "react-redux";
+import {
+  setCalculateAmoumt,
+  setCalculatePayMethod,
+} from "../../redux/actions/mainAction";
 
 const PurchaseForm = ({ payment, methods }) => {
+  const [amount, setAmount] = useState(100);
+  const dispatch = useDispatch();
+
   const customStyles = {
     option: (provided, state) => {
       return {
@@ -70,22 +78,33 @@ const PurchaseForm = ({ payment, methods }) => {
   const data = methods.length > 0 && dataPreparation();
   console.log("data: ", data);
 
-  const handlSelect = (e) => {
-    console.log(e);
+  const handleInputAmount = (e) => {
+    const { value } = e.target;
+    const { base } = e.target.dataset;
+    console.log("e.target: ", e);
+    setAmount(value);
+    dispatch(setCalculateAmoumt({ amount: value, base }));
   };
 
+  const handlSelect = (e) => {
+    console.log(e);
+    dispatch(setCalculatePayMethod({ payment, value: e.value }));
+  };
+  console.dir(Select);
   return (
     <SelectLabel>
-      <h3>{payment}</h3>
+      <h3>{payment === "invoice" && "Sell"}</h3>
+      <h3>{payment === "withdraw" && "Buy"}</h3>
       <Select
         className="basic-single"
         classNamePrefix="select"
+        data-base={payment}
         defaultValue={data[0]}
         onChange={handlSelect}
         isLoading={false}
         isClearable={false}
         isSearchable={true}
-        name="methods"
+        name={payment}
         styles={customStyles}
         theme={(theme) => {
           return {
@@ -101,7 +120,12 @@ const PurchaseForm = ({ payment, methods }) => {
         }}
         options={dataPreparation()}
       />
-      <input type="text" readOnly value={"aaa"} />
+      <input
+        type="text"
+        data-base={payment}
+        value={amount}
+        onChange={handleInputAmount}
+      />
     </SelectLabel>
   );
 };
