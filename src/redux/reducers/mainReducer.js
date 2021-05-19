@@ -3,18 +3,16 @@ import {
   payMethodsRequest,
   payMethodsSuccess,
   payMethodsError,
-  setCalculateAmoumt,
   setCalculatePayMethod,
   getCalculateSuccess,
   invoiceAmoumt,
   withdrawAmoumt,
 } from "../actions/mainAction";
-import { setCalculateRequest } from "../actions/mainAction";
 
 const initialMethods = { invoice: [], withdraw: [] };
 const initialCalculate = {
   base: "",
-  amount: null,
+  amount: 100,
   invoicePayMethod: null,
   withdrawPayMethod: null,
 };
@@ -23,12 +21,6 @@ const methods = createReducer(
   { ...initialMethods },
   {
     [payMethodsSuccess]: (_, { payload }) => ({ ...payload }),
-    // [refreshSuccess]: (state, { payload }) => ({
-    //   ...state,
-    //   accessToken: payload.newAccessToken,
-    //   refreshToken: payload.newRefreshToken,
-    //   sid: payload.newSid,
-    // }),
   }
 );
 const sell = createReducer(

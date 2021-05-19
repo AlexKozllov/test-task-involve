@@ -19,15 +19,14 @@ const MainPage = () => {
   const currentBuyAmount = useSelector(
     (state) => state.payMethods.setCalculate.buy.amount
   );
+
   useEffect(() => {
     dispatch(getPayMethods());
-    // dispatch(getCalculate("invoice", 50, 4, 6));
   }, []);
 
-  console.log("payMethods: ", payMethods);
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(getResCalculate());
+    // dispatch(getResCalculate());
   };
 
   return (

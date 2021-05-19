@@ -1,16 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import { SelectLabel } from "./styleForm";
 import Select from "react-select";
 import { useDispatch } from "react-redux";
 import {
   invoiceAmoumt,
-  setCalculateAmoumt,
   setCalculatePayMethod,
   withdrawAmoumt,
 } from "../../redux/actions/mainAction";
+import { getResCalculate } from "../../redux/operations/mainOperations";
+import { useDebouncedCallback } from "use-debounce/lib";
 
 const PurchaseForm = ({ payment, methods, currentAmount }) => {
-  const [amount, setAmount] = useState(100);
   const dispatch = useDispatch();
 
   const customStyles = {
@@ -78,25 +78,31 @@ const PurchaseForm = ({ payment, methods, currentAmount }) => {
       return acc;
     }, []);
   const data = methods.length > 0 && dataPreparation();
-  console.log("data: ", data);
+
+  const isValid = (value) => {
+    return !isNaN(value);
+  };
+
+  const debouncedFetch = useDebouncedCallback((value) => {
+    dispatch(getResCalculate());
+  }, 300);
 
   const handleInputAmount = (e) => {
     const { value } = e.target;
     const { base } = e.target.dataset;
-    console.log("e.target: ", e);
-    setAmount(value);
-    // dispatch(setCalculateAmoumt({ amount: Number(value), base }));
-    payment === "invoice" &&
-      dispatch(invoiceAmoumt({ amount: Number(value), base }));
-    payment === "withdraw" &&
-      dispatch(withdrawAmoumt({ amount: Number(value), base }));
+    if (isValid(value)) {
+      payment === "invoice" &&
+        dispatch(invoiceAmoumt({ amount: Number(value), base }));
+      payment === "withdraw" &&
+        dispatch(withdrawAmoumt({ amount: Number(value), base }));
+      debouncedFetch();
+    }
   };
 
   const handlSelect = (e) => {
-    console.log(e);
     dispatch(setCalculatePayMethod({ payment, value: e.value }));
+    dispatch(getResCalculate());
   };
-  console.dir(Select);
   return (
     <SelectLabel>
       <h3>{payment === "invoice" && "Sell"}</h3>
