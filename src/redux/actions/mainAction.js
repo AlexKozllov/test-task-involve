@@ -7,6 +7,8 @@ const payMethodsError = createAction("mainPage/payMethodsError");
 // const setCalculateRequest = createAction("mainPage/setCalculateRequest");
 const setCalculatePayMethod = createAction("mainPage/setCalculatePayMethod");
 const setCalculateAmoumt = createAction("mainPage/setCalculateAmoumt");
+const invoiceAmoumt = createAction("mainPage/invoiceAmoumt");
+const withdrawAmoumt = createAction("mainPage/withdrawAmoumt");
 // const setCalculateError = createAction("mainPage/setCalculateError");
 const getCalculateRequest = createAction("mainPage/getCalculateRequest");
 const getCalculateSuccess = createAction("mainPage/getCalculateSuccess");
@@ -18,6 +20,8 @@ export {
   payMethodsError,
   setCalculatePayMethod,
   setCalculateAmoumt,
+  invoiceAmoumt,
+  withdrawAmoumt,
   getCalculateRequest,
   getCalculateSuccess,
   getCalculateError,

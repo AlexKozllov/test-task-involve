@@ -13,7 +13,12 @@ import { MainPageStyles, SelectWrapper, SelectButton } from "./MainPageStyles";
 const MainPage = () => {
   const dispatch = useDispatch();
   const payMethods = useSelector((state) => state.payMethods.methods);
-
+  const currentSellAmount = useSelector(
+    (state) => state.payMethods.setCalculate.sell.amount
+  );
+  const currentBuyAmount = useSelector(
+    (state) => state.payMethods.setCalculate.buy.amount
+  );
   useEffect(() => {
     dispatch(getPayMethods());
     // dispatch(getCalculate("invoice", 50, 4, 6));
@@ -32,10 +37,12 @@ const MainPage = () => {
           <PurchaseForm
             payment="invoice"
             methods={payMethods.invoice}
+            currentAmount={currentSellAmount}
           ></PurchaseForm>
           <PurchaseForm
             payment="withdraw"
             methods={payMethods.withdraw}
+            currentAmount={currentBuyAmount}
           ></PurchaseForm>
         </SelectWrapper>
         <SelectButton type="submit" value="Отправить" />

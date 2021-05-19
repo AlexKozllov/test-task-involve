@@ -3,11 +3,13 @@ import { SelectLabel } from "./styleForm";
 import Select from "react-select";
 import { useDispatch } from "react-redux";
 import {
+  invoiceAmoumt,
   setCalculateAmoumt,
   setCalculatePayMethod,
+  withdrawAmoumt,
 } from "../../redux/actions/mainAction";
 
-const PurchaseForm = ({ payment, methods }) => {
+const PurchaseForm = ({ payment, methods, currentAmount }) => {
   const [amount, setAmount] = useState(100);
   const dispatch = useDispatch();
 
@@ -83,7 +85,11 @@ const PurchaseForm = ({ payment, methods }) => {
     const { base } = e.target.dataset;
     console.log("e.target: ", e);
     setAmount(value);
-    dispatch(setCalculateAmoumt({ amount: value, base }));
+    // dispatch(setCalculateAmoumt({ amount: Number(value), base }));
+    payment === "invoice" &&
+      dispatch(invoiceAmoumt({ amount: Number(value), base }));
+    payment === "withdraw" &&
+      dispatch(withdrawAmoumt({ amount: Number(value), base }));
   };
 
   const handlSelect = (e) => {
@@ -123,7 +129,7 @@ const PurchaseForm = ({ payment, methods }) => {
       <input
         type="text"
         data-base={payment}
-        value={amount}
+        value={currentAmount}
         onChange={handleInputAmount}
       />
     </SelectLabel>
