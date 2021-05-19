@@ -6,8 +6,6 @@ const getMethods = async () => {
   try {
     const response = await axios.get("/payMethods");
 
-    console.log(`response.data`, response.data);
-
     return await response.data;
   } catch (error) {
     console.log("error", error);
@@ -31,8 +29,6 @@ const getCalculate = async (
         withdrawPayMethod,
       },
     });
-
-    console.log(`response.data`, response.data);
 
     return await response.data;
   } catch (error) {

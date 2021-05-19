@@ -1,4 +1,4 @@
-import { getMethods, getCalculate } from "../../servises/reqToApi";
+import { getMethods, getCalculate, postBids } from "../../servises/reqToApi";
 import {
   payMethodsRequest,
   payMethodsSuccess,
@@ -6,6 +6,9 @@ import {
   getCalculateRequest,
   getCalculateSuccess,
   getCalculateError,
+  postTransactionRequest,
+  postTransactionSuccess,
+  postTransactionError,
 } from "../actions/mainAction";
 
 const getPayMethods = () => async (dispatch) => {
@@ -46,4 +49,32 @@ const getResCalculate = () => async (dispatch, getState) => {
   }
 };
 
-export { getPayMethods, getResCalculate };
+const postTransaction = () => async (dispatch, getState) => {
+  const { sell, buy } = getState().payMethods.setCalculate;
+  dispatch(postTransactionRequest());
+  try {
+    if (sell.base && sell.invoicePayMethod && sell.withdrawPayMethod) {
+      const res = await postBids(
+        sell.amount,
+        sell.base,
+        sell.invoicePayMethod,
+        sell.withdrawPayMethod
+      );
+      console.log(res);
+      dispatch(postTransactionSuccess(res));
+    }
+    if (buy.base && buy.invoicePayMethod && buy.withdrawPayMethod) {
+      const res = await postBids(
+        buy.amount,
+        buy.base,
+        buy.invoicePayMethod,
+        buy.withdrawPayMethod
+      );
+      dispatch(postTransactionSuccess(res));
+    }
+  } catch (error) {
+    dispatch(postTransactionError(error));
+  }
+};
+
+export { getPayMethods, getResCalculate, postTransaction };

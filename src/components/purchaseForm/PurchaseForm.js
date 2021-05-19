@@ -77,7 +77,6 @@ const PurchaseForm = ({ payment, methods, currentAmount }) => {
       acc.push({ value: item.id, label: item.name });
       return acc;
     }, []);
-  const data = methods.length > 0 && dataPreparation();
 
   const isValid = (value) => {
     return !isNaN(value);
@@ -107,31 +106,31 @@ const PurchaseForm = ({ payment, methods, currentAmount }) => {
     <SelectLabel>
       <h3>{payment === "invoice" && "Sell"}</h3>
       <h3>{payment === "withdraw" && "Buy"}</h3>
-      <Select
-        className="basic-single"
-        classNamePrefix="select"
-        data-base={payment}
-        defaultValue={data[0]}
-        onChange={handlSelect}
-        isLoading={false}
-        isClearable={false}
-        isSearchable={true}
-        name={payment}
-        styles={customStyles}
-        theme={(theme) => {
-          return {
-            ...theme,
-            colors: {
-              ...theme.colors,
-              primary25: "#F4F4F4",
-              primary50: "#58B4AE",
-              primary: "#58B4AE",
-              neutral60: "#58B4AE",
-            },
-          };
-        }}
-        options={dataPreparation()}
-      />
+      {methods.length > 0 && (
+        <Select
+          className="basic-single"
+          classNamePrefix="select"
+          data-base={payment}
+          defaultValue={{ value: methods[0].id, label: methods[0].name }}
+          onChange={handlSelect}
+          isLoading={false}
+          name={payment}
+          styles={customStyles}
+          theme={(theme) => {
+            return {
+              ...theme,
+              colors: {
+                ...theme.colors,
+                primary25: "#F4F4F4",
+                primary50: "#58B4AE",
+                primary: "#58B4AE",
+                neutral60: "#58B4AE",
+              },
+            };
+          }}
+          options={dataPreparation()}
+        />
+      )}
       <input
         type="text"
         data-base={payment}

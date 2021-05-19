@@ -1,10 +1,12 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router";
 
 import {
   getPayMethods,
   getResCalculate,
 } from "../../../redux/operations/mainOperations";
+import routers from "../../../routers/routers";
 import { getCalculate } from "../../../servises/reqToApi";
 
 import PurchaseForm from "../../purchaseForm/PurchaseForm";
@@ -13,12 +15,11 @@ import { MainPageStyles, SelectWrapper, SelectButton } from "./MainPageStyles";
 const MainPage = () => {
   const dispatch = useDispatch();
   const payMethods = useSelector((state) => state.payMethods.methods);
-  const currentSellAmount = useSelector(
-    (state) => state.payMethods.setCalculate.sell.amount
+  const currentSell = useSelector(
+    (state) => state.payMethods.setCalculate.sell
   );
-  const currentBuyAmount = useSelector(
-    (state) => state.payMethods.setCalculate.buy.amount
-  );
+  const currentBuy = useSelector((state) => state.payMethods.setCalculate.buy);
+  const history = useHistory();
 
   useEffect(() => {
     dispatch(getPayMethods());
@@ -26,7 +27,9 @@ const MainPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // dispatch(getResCalculate());
+    if (currentSell.base || currentBuy.base) {
+      history.push(routers.info);
+    }
   };
 
   return (
@@ -36,12 +39,12 @@ const MainPage = () => {
           <PurchaseForm
             payment="invoice"
             methods={payMethods.invoice}
-            currentAmount={currentSellAmount}
+            currentAmount={currentSell.amount}
           ></PurchaseForm>
           <PurchaseForm
             payment="withdraw"
             methods={payMethods.withdraw}
-            currentAmount={currentBuyAmount}
+            currentAmount={currentBuy.amount}
           ></PurchaseForm>
         </SelectWrapper>
         <SelectButton type="submit" value="Отправить" />

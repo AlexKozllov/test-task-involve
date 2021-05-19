@@ -14,6 +14,10 @@ const getCalculateRequest = createAction("mainPage/getCalculateRequest");
 const getCalculateSuccess = createAction("mainPage/getCalculateSuccess");
 const getCalculateError = createAction("mainPage/getCalculateError");
 
+const postTransactionRequest = createAction("mainPage/postTransactionRequest");
+const postTransactionSuccess = createAction("mainPage/postTransactionSuccess");
+const postTransactionError = createAction("mainPage/postTransactionError");
+
 export {
   payMethodsRequest,
   payMethodsSuccess,
@@ -25,6 +29,9 @@ export {
   getCalculateRequest,
   getCalculateSuccess,
   getCalculateError,
+  postTransactionRequest,
+  postTransactionSuccess,
+  postTransactionError,
   //   setCalculateSuccess,
   //   setCalculateError,
 };

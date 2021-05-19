@@ -7,6 +7,7 @@ import {
   getCalculateSuccess,
   invoiceAmoumt,
   withdrawAmoumt,
+  postTransactionSuccess,
 } from "../actions/mainAction";
 
 const initialMethods = { invoice: [], withdraw: [] };
@@ -15,6 +16,9 @@ const initialCalculate = {
   amount: 100,
   invoicePayMethod: null,
   withdrawPayMethod: null,
+};
+const initialBids = {
+  message: "",
 };
 
 const methods = createReducer(
@@ -67,6 +71,15 @@ const buy = createReducer(
   }
 );
 
+const responseBids = createReducer(
+  { ...initialBids },
+  {
+    [postTransactionSuccess]: (state, { payload }) => ({
+      ...payload,
+    }),
+  }
+);
+
 // const setCalculate = createReducer(
 //   { ...initialCalculate },
 //   {
@@ -101,6 +114,7 @@ const setCalculate = combineReducers({ sell, buy });
 const mainReduser = combineReducers({
   methods,
   setCalculate,
+  responseBids,
   error,
   loading,
 });
