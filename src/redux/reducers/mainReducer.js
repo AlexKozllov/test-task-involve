@@ -31,6 +31,7 @@ const methods = createReducer(
     [payMethodsSuccess]: (_, { payload }) => ({ ...payload }),
   }
 );
+
 const sell = createReducer(
   { ...initialCalculate },
   {

@@ -20,7 +20,7 @@ const InputContainer = styled.div`
   justify-content: space-between;
   border: 1px solid #cbcbcb;
   border-radius: 5px;
-  input {
+  & input {
     width: 313px;
     height: 44px;
 

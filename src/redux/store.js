@@ -1,8 +1,6 @@
 import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
 import { combineReducers } from "redux";
-import storage from "redux-persist/lib/storage";
-import persistReducer from "redux-persist/es/persistReducer";
-import persistStore from "redux-persist/es/persistStore";
+
 import {
   FLUSH,
   PAUSE,
@@ -14,15 +12,8 @@ import {
 
 import { mainReduser } from "./reducers/mainReducer";
 
-const mainPersistConfig = {
-  key: "currentMethod",
-  storage,
-  blacklist: ["methods", "setCalculate", "responseBids"],
-  // whitelist: ["navigation"],
-};
-
 const rootReducer = combineReducers({
-  payMethods: persistReducer(mainPersistConfig, mainReduser),
+  payMethods: mainReduser,
 });
 
 const store = configureStore({
@@ -34,6 +25,4 @@ const store = configureStore({
   }),
 });
 
-const persistor = persistStore(store);
-
-export { store, persistor };
+export { store };
