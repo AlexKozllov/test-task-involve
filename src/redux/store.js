@@ -1,8 +1,6 @@
 import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
 import { combineReducers } from "redux";
-import storage from "redux-persist/lib/storage";
-import persistReducer from "redux-persist/es/persistReducer";
-import persistStore from "redux-persist/es/persistStore";
+
 import {
   FLUSH,
   PAUSE,
@@ -12,15 +10,10 @@ import {
   REHYDRATE,
 } from "redux-persist/es/constants";
 
-import { authReducer } from "./reducers/authReducer";
-
-const authPersistConfig = {
-  key: "auth",
-  storage,
-};
+import { mainReduser } from "./reducers/mainReducer";
 
 const rootReducer = combineReducers({
-  auth: persistReducer(authPersistConfig, authReducer),
+  payMethods: mainReduser,
 });
 
 const store = configureStore({
@@ -32,6 +25,4 @@ const store = configureStore({
   }),
 });
 
-const persistor = persistStore(store);
-
-export { store, persistor };
+export { store };
