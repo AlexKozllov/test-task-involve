@@ -3,14 +3,12 @@ import { Route, Switch } from "react-router";
 import routers from "../routers/routers";
 
 import "./App.scss";
-import { GlobalStyle } from "./createGlobalStyle/CreateGlobalStyle";
 import Layout from "./layout/Layout";
 import Loader from "./loader/Loader";
 
 function App() {
   return (
     <div>
-      <GlobalStyle />
       <Layout>
         <div className="App">
           <Suspense fallback={<Loader />}>
