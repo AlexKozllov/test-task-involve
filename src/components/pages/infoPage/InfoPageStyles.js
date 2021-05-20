@@ -10,7 +10,7 @@ const Details = styled.div`
 
   & h3 {
     margin-bottom: 36px;
-    font-family: "Roboto";
+    font-family: "Roboto-700";
     font-size: 48px;
     font-style: normal;
     font-weight: 700;
@@ -25,7 +25,8 @@ const DetailsItem = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  font-family: Roboto;
+  align-items: center;
+  font-family: "Roboto-400";
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
@@ -52,12 +53,11 @@ const CancelButtons = styled.button`
   border: 1px solid #58b4ae;
   border-radius: 5px;
   color: #000;
-  font-family: Roboto;
+  font-family: "Roboto-700";
   font-size: 14px;
   font-style: normal;
   font-weight: 700;
   line-height: 16px;
-
   text-align: center;
   transition: all ease-in 150ms;
   :hover {
@@ -74,12 +74,11 @@ const ConfirmButtons = styled.button`
   border-style: none;
   border-radius: 5px;
   color: #fff;
-  font-family: Roboto;
+  font-family: "Roboto-700";
   font-size: 14px;
   font-style: normal;
   font-weight: 700;
   line-height: 16px;
-
   text-align: center;
   transition: all ease-in 150ms;
   :hover {
@@ -87,7 +86,5 @@ const ConfirmButtons = styled.button`
     transform: translate(-3px, -3px);
     transition: all ease-in 150ms;
   }
-
-  /* margin-right: 24px; */
 `;
 export { Details, DetailsItem, Buttons, CancelButtons, ConfirmButtons };

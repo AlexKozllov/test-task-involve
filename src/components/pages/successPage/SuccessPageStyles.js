@@ -16,7 +16,7 @@ const MessageContainer = styled.div`
   width: 312px;
   height: 89px;
 
-  font-family: Roboto;
+  font-family: "Roboto-400";
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
@@ -26,7 +26,7 @@ const MessageContainer = styled.div`
 `;
 
 const Message = styled.p`
-  font-family: Roboto;
+  font-family: "Roboto-700";
   font-size: 28px;
   font-style: normal;
   font-weight: 700;
@@ -48,7 +48,7 @@ const HomeButtons = styled.button`
   border-style: none;
   border-radius: 5px;
   color: #fff;
-  font-family: Roboto;
+  font-family: "Roboto-700";
   font-size: 14px;
   font-style: normal;
   font-weight: 700;
@@ -61,8 +61,6 @@ const HomeButtons = styled.button`
     transform: translate(-3px, -3px);
     transition: all ease-in 150ms;
   }
-
-  /* margin-right: 24px; */
 `;
 export {
   SuccessContainer,

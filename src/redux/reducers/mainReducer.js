@@ -8,14 +8,18 @@ import {
   invoiceAmoumt,
   withdrawAmoumt,
   postTransactionSuccess,
+  getCalculateRequest,
+  getCalculateError,
+  postTransactionRequest,
+  postTransactionError,
 } from "../actions/mainAction";
 
 const initialMethods = { invoice: [], withdraw: [] };
 const initialCalculate = {
   base: "",
-  amount: 100,
-  invoicePayMethod: null,
-  withdrawPayMethod: null,
+  amount: "",
+  invoicePayMethod: 3,
+  withdrawPayMethod: 6,
 };
 const initialBids = {
   message: "",
@@ -71,6 +75,12 @@ const buy = createReducer(
   }
 );
 
+const loadingInput = createReducer(false, {
+  [getCalculateRequest]: () => true,
+  [getCalculateSuccess]: () => false,
+  [getCalculateError]: () => false,
+});
+
 const responseBids = createReducer(
   { ...initialBids },
   {
@@ -80,37 +90,27 @@ const responseBids = createReducer(
   }
 );
 
-// const setCalculate = createReducer(
-//   { ...initialCalculate },
-//   {
-//     [setCalculateAmoumt]: (state, { payload }) => ({ ...state, ...payload }),
-//     [setCalculatePayMethod]: (state, { payload }) => ({
-//       ...state,
-//       base: payload.payment,
-//       invoicePayMethod:
-//         payload.payment === "invoice" ? payload.value : state.invoicePayMethod,
-//       withdrawPayMethod:
-//         payload.payment === "withdraw"
-//           ? payload.value
-//           : state.withdrawPayMethod,
-//     }),
-//     [getCalculateSuccess]: (state, { payload }) => ({
-//       ...state,
-//       amount: payload.amount,
-//     }),
-//   }
-// );
-
 const loading = createReducer(false, {
   [payMethodsRequest]: () => true,
   [payMethodsSuccess]: () => false,
   [payMethodsError]: () => false,
+  [postTransactionRequest]: () => true,
+  [postTransactionSuccess]: () => false,
+  [postTransactionError]: () => false,
 });
 
 const error = createReducer(null, {
   [payMethodsError]: (_, { payload }) => payload,
+  [payMethodsRequest]: () => "",
+  [payMethodsSuccess]: () => "",
+  [postTransactionError]: (_, { payload }) => payload,
+  [payMethodsRequest]: () => "",
+  [payMethodsSuccess]: () => "",
+  [getCalculateError]: (_, { payload }) => payload,
+  [getCalculateRequest]: () => "",
+  [getCalculateSuccess]: () => "",
 });
-const setCalculate = combineReducers({ sell, buy });
+const setCalculate = combineReducers({ sell, buy, loadingInput });
 const mainReduser = combineReducers({
   methods,
   setCalculate,

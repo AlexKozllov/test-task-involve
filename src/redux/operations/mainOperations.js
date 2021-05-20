@@ -34,6 +34,7 @@ const getResCalculate = () => async (dispatch, getState) => {
         sell.withdrawPayMethod
       );
       dispatch(getCalculateSuccess(res));
+      return;
     }
     if (buy.base && buy.invoicePayMethod && buy.withdrawPayMethod) {
       const res = await getCalculate(
@@ -43,6 +44,7 @@ const getResCalculate = () => async (dispatch, getState) => {
         buy.withdrawPayMethod
       );
       dispatch(getCalculateSuccess(res));
+      return;
     }
   } catch (error) {
     dispatch(getCalculateError(error));
@@ -60,8 +62,8 @@ const postTransaction = () => async (dispatch, getState) => {
         sell.invoicePayMethod,
         sell.withdrawPayMethod
       );
-      console.log(res);
       dispatch(postTransactionSuccess(res));
+      return;
     }
     if (buy.base && buy.invoicePayMethod && buy.withdrawPayMethod) {
       const res = await postBids(
@@ -71,6 +73,7 @@ const postTransaction = () => async (dispatch, getState) => {
         buy.withdrawPayMethod
       );
       dispatch(postTransactionSuccess(res));
+      return;
     }
   } catch (error) {
     dispatch(postTransactionError(error));

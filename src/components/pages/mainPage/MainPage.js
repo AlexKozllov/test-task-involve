@@ -2,12 +2,8 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 
-import {
-  getPayMethods,
-  getResCalculate,
-} from "../../../redux/operations/mainOperations";
+import { getPayMethods } from "../../../redux/operations/mainOperations";
 import routers from "../../../routers/routers";
-import { getCalculate } from "../../../servises/reqToApi";
 
 import PurchaseForm from "../../purchaseForm/PurchaseForm";
 import { MainPageStyles, SelectWrapper, SelectButton } from "./MainPageStyles";
@@ -15,12 +11,10 @@ import { MainPageStyles, SelectWrapper, SelectButton } from "./MainPageStyles";
 const MainPage = () => {
   const dispatch = useDispatch();
   const payMethods = useSelector((state) => state.payMethods.methods);
-  const currentSell = useSelector(
-    (state) => state.payMethods.setCalculate.sell
-  );
-  const currentBuy = useSelector((state) => state.payMethods.setCalculate.buy);
-  const history = useHistory();
 
+  const history = useHistory();
+  const preCalculation = useSelector((state) => state.payMethods.setCalculate);
+  const { sell: currentSell, buy: currentBuy } = preCalculation;
   useEffect(() => {
     dispatch(getPayMethods());
   }, []);
@@ -47,7 +41,12 @@ const MainPage = () => {
             currentAmount={currentBuy.amount}
           ></PurchaseForm>
         </SelectWrapper>
-        <SelectButton type="submit" value="Отправить" />
+
+        <SelectButton
+          type="submit"
+          disabled={!currentSell.amount || !currentBuy.amount}
+          value="Exchange"
+        />
       </form>
     </MainPageStyles>
   );
