@@ -8,8 +8,8 @@ const GlobalStyle = createGlobalStyle`
   font-weight: 400;
   
   src: local(''),
-           url('../../fonts/roboto-v27-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
-       url('../../fonts/roboto-v27-latin-regular.woff') format('woff'), /* Modern Browsers */
+           url('../../../puplic/fonts/roboto-v27-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+       url('../../../puplic/fonts/roboto-v27-latin-regular.woff') format('woff'), /* Modern Browsers */
      }
 /* roboto-500 - latin */
 @font-face {
@@ -19,8 +19,8 @@ const GlobalStyle = createGlobalStyle`
  
   src: local(''),
       
-       url('../../fonts/roboto-v27-latin-500.woff2') format('woff2'), /* Super Modern Browsers */
-       url('../../fonts/roboto-v27-latin-500.woff') format('woff'), /* Modern Browsers */
+       url('../../../puplic/fonts/roboto-v27-latin-500.woff2') format('woff2'), /* Super Modern Browsers */
+       url('../../../puplic/fonts/roboto-v27-latin-500.woff') format('woff'), /* Modern Browsers */
 
 }
 /* roboto-700 - latin */
@@ -30,8 +30,8 @@ const GlobalStyle = createGlobalStyle`
   font-weight: 700;
   src: local(''),
        
-       url('../../fonts/roboto-v27-latin-700.woff2') format('woff2'), /* Super Modern Browsers */
-       url('../../fonts/roboto-v27-latin-700.woff') format('woff'), /* Modern Browsers */
+       url('../../../puplic/fonts/roboto-v27-latin-700.woff2') format('woff2'), /* Super Modern Browsers */
+       url('../../../puplic/fonts/roboto-v27-latin-700.woff') format('woff'), /* Modern Browsers */
      
 }
 `;

@@ -3,7 +3,7 @@ import styled from "styled-components";
 const SelectLabel = styled.div`
   margin: 28px 32px;
   & h3 {
-    font-family: Roboto;
+    font-family: "Roboto-700";
     font-style: normal;
     font-weight: bold;
     font-size: 48px;
@@ -29,7 +29,7 @@ const InputContainer = styled.div`
     border-radius: 5px;
     outline: none;
     display: block;
-    font-family: Roboto;
+    font-family: "Roboto-400";
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
@@ -54,9 +54,7 @@ const customStyles = {
   control: (provided, state) => {
     return {
       border: state.menuIsOpen ? "1px solid #58B4AE" : "1px solid #CBCBCB",
-
       borderRadius: 4,
-
       width: 313,
       height: 46,
       display: "flex",
