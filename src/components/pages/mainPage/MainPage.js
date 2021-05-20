@@ -8,13 +8,17 @@ import routers from "../../../routers/routers";
 import PurchaseForm from "../../purchaseForm/PurchaseForm";
 import { MainPageStyles, SelectWrapper, SelectButton } from "./MainPageStyles";
 
+import {
+  payMethods,
+  preCalculation,
+} from "../../../redux/selectors/mainSelector";
+
 const MainPage = () => {
   const dispatch = useDispatch();
-  const payMethods = useSelector((state) => state.payMethods.methods);
-
+  const methods = useSelector((state) => payMethods(state));
+  const calculation = useSelector((state) => preCalculation(state));
   const history = useHistory();
-  const preCalculation = useSelector((state) => state.payMethods.setCalculate);
-  const { sell: currentSell, buy: currentBuy } = preCalculation;
+  const { sell: currentSell, buy: currentBuy } = calculation;
   useEffect(() => {
     dispatch(getPayMethods());
   }, []);
@@ -32,12 +36,12 @@ const MainPage = () => {
         <SelectWrapper className="">
           <PurchaseForm
             payment="invoice"
-            methods={payMethods.invoice}
+            methods={methods.invoice}
             currentAmount={currentSell.amount}
           ></PurchaseForm>
           <PurchaseForm
             payment="withdraw"
-            methods={payMethods.withdraw}
+            methods={methods.withdraw}
             currentAmount={currentBuy.amount}
           ></PurchaseForm>
         </SelectWrapper>

@@ -11,14 +11,15 @@ import { getResCalculate } from "../../redux/operations/mainOperations";
 import { useDebouncedCallback } from "use-debounce/lib";
 import { findDefaultMethod } from "../../utils/findUtils";
 import LoaderInput from "../loaderInput/LoaderInput";
+import { payMethods, preCalculation } from "../../redux/selectors/mainSelector";
 
 const PurchaseForm = ({ payment, methods, currentAmount }) => {
   const dispatch = useDispatch();
-  const preCalculation = useSelector((state) => state.payMethods.setCalculate);
-  const payMethods = useSelector((state) => state.payMethods.methods);
+  const staeMethods = useSelector((state) => payMethods(state));
+  const calculation = useSelector((state) => preCalculation(state));
 
-  const { sell, buy, loadingInput } = preCalculation;
-  const { invoice, withdraw } = payMethods;
+  const { sell, buy, loadingInput } = calculation;
+  const { invoice, withdraw } = staeMethods;
 
   const dataPreparation = () =>
     methods.reduce((acc, item) => {

@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Redirect, useHistory } from "react-router";
+import { responseBids } from "../../../redux/selectors/mainSelector";
 import routers from "../../../routers/routers";
 import sprite from "../../../sprites/sprite.svg";
 import {
@@ -12,7 +13,7 @@ import {
 } from "./SuccessPageStyles";
 
 const SuccessPage = () => {
-  const responseBids = useSelector((state) => state.payMethods.responseBids);
+  const response = useSelector((state) => responseBids(state));
   const history = useHistory();
 
   const handleToHome = () => {
@@ -21,13 +22,13 @@ const SuccessPage = () => {
 
   return (
     <div>
-      {responseBids.message ? (
+      {response.message ? (
         <SuccessContainer>
           <CheckShield>
             <use href={sprite + "#bx_bxs-check-shield"} />
           </CheckShield>
           <MessageContainer>
-            <Message>{`${responseBids.message}!`}</Message>
+            <Message>{`${response.message}!`}</Message>
             <p>
               Your exchange order has been placed successfully and will be
               processed soon.
@@ -36,7 +37,7 @@ const SuccessPage = () => {
           <HomeButtons onClick={handleToHome}>Home</HomeButtons>
         </SuccessContainer>
       ) : (
-        <Redirect to={routers.mein} />
+        <Redirect to={routers.main} />
       )}
     </div>
   );

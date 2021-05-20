@@ -12,16 +12,21 @@ import {
   DetailsItem,
   ConfirmButtons,
 } from "./InfoPageStyles";
+import {
+  payMethods,
+  preCalculation,
+  loading,
+} from "../../../redux/selectors/mainSelector";
 
 const InfoPage = () => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const preCalculation = useSelector((state) => state.payMethods.setCalculate);
-  const payMethods = useSelector((state) => state.payMethods.methods);
-  const loading = useSelector((state) => state.payMethods.loading);
+  const calculation = useSelector((state) => preCalculation(state));
+  const methods = useSelector((state) => payMethods(state));
+  const isLoading = useSelector((state) => loading(state));
 
-  const { invoice, withdraw } = payMethods;
-  const { sell, buy } = preCalculation;
+  const { invoice, withdraw } = methods;
+  const { sell, buy } = calculation;
 
   useEffect(() => {
     !sell.amount | !buy.amount && history.push(routers.main);
@@ -38,7 +43,7 @@ const InfoPage = () => {
 
   return (
     <div>
-      {loading && <Loader />}
+      {isLoading && <Loader />}
       {sell.amount | buy.amount && (
         <Details>
           <h3>Details</h3>
